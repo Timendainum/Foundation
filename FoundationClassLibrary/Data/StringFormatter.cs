@@ -281,7 +281,12 @@ namespace FoundationClassLibrary.Data
         /// <returns>Generic list of strings.</returns>
         public static StringCollection ToGenericList(string[] stringArray)
         {
-            StringCollection result = new StringCollection();
+			if (stringArray == null)
+				throw new ArgumentNullException("stringArray");
+			if (stringArray.GetLength(0) < 1)
+				throw new ArgumentOutOfRangeException("stringArray");
+			
+			StringCollection result = new StringCollection();
             for (int x = 0; x < stringArray.Length; x++)
             {
                 result.Add(stringArray[x]);
@@ -299,16 +304,15 @@ namespace FoundationClassLibrary.Data
 		/// <returns>A generic list of strings: StringCollection</returns>
 		public static StringCollection DelimitedStringToStringList(string value, char delimiter)
 		{
-			StringCollection result = new StringCollection();
+			//validate params
+			if (string.IsNullOrEmpty(value))
+				throw new ArgumentNullException("value");
 
-			if (value != null)
-			{
-				string[] valueArray = value.Split(delimiter);
-				foreach (string val in valueArray)
-					result.Add(val.Trim());
-			}
-			else
-				throw new Exception("Cannot parse delimited string to StringCollection. Value is null.");
+			StringCollection result = new StringCollection();
+			string[] valueArray = value.Split(delimiter);
+			foreach (string val in valueArray)
+				result.Add(val.Trim());
+
 			return result;
 		}
 
@@ -330,16 +334,14 @@ namespace FoundationClassLibrary.Data
 		/// <returns>A generic list of strings: StringCollection</returns>
 		public static IntCollection DelimitedStringToIntList(string value, char delimiter)
 		{
-			IntCollection result = new IntCollection();
+			if (string.IsNullOrEmpty(value))
+				throw new ArgumentNullException("value");
 
-			if (value != null)
-			{
-				string[] valueArray = value.Split(delimiter);
-				foreach (string val in valueArray)
-					result.Add(ToInt(val));
-			}
-			else
-				throw new Exception("Cannot parse delimited string to IntCollection. Value is null.");
+			IntCollection result = new IntCollection();
+			string[] valueArray = value.Split(delimiter);
+			foreach (string val in valueArray)
+				result.Add(ToInt(val));
+
 			return result;
 		}
 
@@ -361,6 +363,12 @@ namespace FoundationClassLibrary.Data
 		/// <returns></returns>
 		public static string ListToDelimitedString(StringCollection value, char delimiter)
 		{
+			//validate params
+			if (value == null)
+				throw new ArgumentNullException("value");
+			else if (value.Count < 1)
+				throw new ArgumentOutOfRangeException("value");
+	
 			string result = string.Join(delimiter.ToString(), value.ToArray());
 			return result;
 		}
@@ -390,11 +398,19 @@ namespace FoundationClassLibrary.Data
 
 		public static string AddHtmlBreaksToText(string value)
 		{
+			//validate params
+			if (value == null)
+				value = string.Empty;
+
 			return value.Replace(ControlCharacters.CrLf, "<br />");
 		}
 
 		public static string AddHtmlBreaksToTextDouble(string value)
 		{
+			//validate params
+			if (value == null)
+				value = string.Empty;
+
 			return value.Replace(ControlCharacters.CrLf + ControlCharacters.CrLf, "<br /><br />");
 		}
 
@@ -408,8 +424,11 @@ namespace FoundationClassLibrary.Data
 		#region cleaning
 		public static string RemoveInvisibleCharacters(string value)
 		{
+			if (string.IsNullOrEmpty(value))
+				throw new ArgumentNullException("value");
+			
 			string result = value;
-			//clean out this crap
+			//clean out invisible chars
 			result = result.Replace(ControlCharacters.NullChar, string.Empty);
 
 			result = result.Replace(ControlCharacters.Cr, string.Empty);
@@ -426,7 +445,10 @@ namespace FoundationClassLibrary.Data
 		/// <returns></returns>
 		public static string RemoveHtml(string value)
 		{
-		    return Regex.Replace(value, @"<(.|\n)*?>", string.Empty);
+			if (string.IsNullOrEmpty(value))
+				throw new ArgumentNullException("value");
+
+			return Regex.Replace(value, @"<(.|\n)*?>", string.Empty);
 		}
 		#endregion
 	}

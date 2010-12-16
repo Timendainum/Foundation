@@ -68,6 +68,11 @@ namespace FoundationClassLibrary.Data
 		/// <returns></returns>
 		public static int ThreeCharacterMonthToMonthInt(string month)
 		{
+			if (string.IsNullOrEmpty(month))
+				throw new ArgumentNullException("month");
+			else if (month.Length != 3)
+				throw new ArgumentOutOfRangeException("month");
+			
 			int monthInt = 0;
 			string month3 = month.ToLower();
 
@@ -110,8 +115,7 @@ namespace FoundationClassLibrary.Data
 					monthInt = 12;
 					break;
 				default:
-					throw new Exception("The month abbreviation supplied was not valid.");
-					break;
+					throw new ArgumentOutOfRangeException("month");
 			}
 
 			return monthInt;
@@ -202,6 +206,12 @@ namespace FoundationClassLibrary.Data
 		/// <returns></returns>
 		public static IntCollection ThreeCharacterMonthListToMonthIntList(StringCollection threeCharacterMonthList)
 		{
+			//Validate params
+			if (threeCharacterMonthList == null)
+				throw new ArgumentNullException("threeCharacterMonthList");
+			if (threeCharacterMonthList.Count < 1)
+				throw new ArgumentOutOfRangeException("threeCharacterMonthList");
+			
 			IntCollection monthList = new IntCollection();
 			foreach (string month in threeCharacterMonthList)
 			{
