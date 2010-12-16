@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace FoundationClassLibrary.DataBase
 {
-	public class WildCardHelper
+	public static class WildCardHelper
 	{
-		public static string ParseWildCard(string fieldName, string fieldValue, List<WildCardDefinition> wildCardDefinitions)
+		public static string ParseWildCard(string fieldName, string fieldValue, WildCardDefinitionCollection wildCardDefinitions)
 		{
 			string result = string.Empty;
-			WildCardDefinition wildCardDefinition = wildCardDefinitions.Find(delegate(WildCardDefinition wdc) { return wdc.FieldName == fieldName; });
+			WildCardDefinition wildCardDefinition = wildCardDefinitions.Find(delegate(WildCardDefinition wcd) { return wcd.FieldName == fieldName; });
 			if (wildCardDefinition != null)
 			{
 				result = ParseWildCard(fieldValue, wildCardDefinition.WildCardType, wildCardDefinition.WildCardFieldType);
@@ -50,7 +51,7 @@ namespace FoundationClassLibrary.DataBase
 			return result;
 		}
 
-		public static string ParseOperator(string fieldName, List<WildCardDefinition> wildCardDefinitions)
+		public static string ParseOperator(string fieldName, WildCardDefinitionCollection wildCardDefinitions)
 		{
 			string result = string.Empty;
 			WildCardDefinition wildCardDefinition = wildCardDefinitions.Find(delegate(WildCardDefinition wdc) { return wdc.FieldName == fieldName; });

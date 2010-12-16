@@ -7,7 +7,7 @@ namespace FoundationClassLibrary.DataBase
 	/// <summary>
 	/// This class transforms values into safe formats for sending to and recovering from databases.
 	/// </summary>
-	public class DatabaseFormatter
+	public static class DatabaseFormatter
 	{
 		#region NullSafe
 		/// <summary>

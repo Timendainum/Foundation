@@ -4,7 +4,7 @@ using FoundationClassLibrary.Data;
 
 namespace FoundationClassLibrary.Log
 {
-	public class Logger
+	public static class Logger
 	{
 		#region use methods
 		public static void Log(string message, string source, EType type, ESeverity severity, ELoggerDataAccessType dataAccessType)
@@ -41,6 +41,9 @@ namespace FoundationClassLibrary.Log
 
 		public static void Exception(string message, string source, Exception ex)
 		{
+			if (ex == null)
+				throw new ArgumentNullException("ex");
+
 			message += String.Format(" Exception message: {0}", ex.Message);
 			if (ex.InnerException != null)
 				message += String.Format(" Inner Exception: {0}", ex.InnerException.Message);

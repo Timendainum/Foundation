@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using FoundationClassLibrary.Data.Collection;
 
 /// <summary>
 /// This class contains methods to help with strings.
@@ -10,7 +11,7 @@ namespace FoundationClassLibrary.Data
     /// <summary>
     /// This class contains many methods for general string manipulation and formating.
     /// </summary>
-    public class StringFormatter
+    public static class StringFormatter
     {
         #region declarations
         private static string[] specialCharacters =
@@ -278,9 +279,9 @@ namespace FoundationClassLibrary.Data
         /// </summary>
         /// <param name="stringArray">String array to convert.</param>
         /// <returns>Generic list of strings.</returns>
-        public static List<string> ToGenericList(string[] stringArray)
+        public static StringCollection ToGenericList(string[] stringArray)
         {
-            List<string> result = new List<string>();
+            StringCollection result = new StringCollection();
             for (int x = 0; x < stringArray.Length; x++)
             {
                 result.Add(stringArray[x]);
@@ -295,10 +296,10 @@ namespace FoundationClassLibrary.Data
 		/// </summary>
 		/// <param name="value">A delimited string.</param>
 		/// <param name="delimiter">The delimiter in the delimited string.</param>
-		/// <returns>A generic list of strings: List<string></returns>
-		public static List<string> DelimitedStringToStringList(string value, char delimiter)
+		/// <returns>A generic list of strings: StringCollection</returns>
+		public static StringCollection DelimitedStringToStringList(string value, char delimiter)
 		{
-			List<string> result = new List<string>();
+			StringCollection result = new StringCollection();
 
 			if (value != null)
 			{
@@ -307,7 +308,7 @@ namespace FoundationClassLibrary.Data
 					result.Add(val.Trim());
 			}
 			else
-				throw new Exception("Cannot parse delimited string to List<string>. Value is null.");
+				throw new Exception("Cannot parse delimited string to StringCollection. Value is null.");
 			return result;
 		}
 
@@ -316,7 +317,7 @@ namespace FoundationClassLibrary.Data
 		/// </summary>
 		/// <param name="value"></param>
 		/// <returns></returns>
-		public static List<string> DelimitedStringToStringList(string value)
+		public static StringCollection DelimitedStringToStringList(string value)
 		{
 			return DelimitedStringToStringList(value, ',');
 		}
@@ -326,10 +327,10 @@ namespace FoundationClassLibrary.Data
 		/// </summary>
 		/// <param name="value">A delimited string.</param>
 		/// <param name="delimiter">The delimiter in the delimited string.</param>
-		/// <returns>A generic list of strings: List<string></returns>
-		public static List<int> DelimitedStringToIntList(string value, char delimiter)
+		/// <returns>A generic list of strings: StringCollection</returns>
+		public static IntCollection DelimitedStringToIntList(string value, char delimiter)
 		{
-			List<int> result = new List<int>();
+			IntCollection result = new IntCollection();
 
 			if (value != null)
 			{
@@ -338,29 +339,29 @@ namespace FoundationClassLibrary.Data
 					result.Add(ToInt(val));
 			}
 			else
-				throw new Exception("Cannot parse delimited string to List<int>. Value is null.");
+				throw new Exception("Cannot parse delimited string to IntCollection. Value is null.");
 			return result;
 		}
 
 		/// <summary>
-		/// Converts a List<string> into a comma delimited string.
+		/// Converts a StringCollection into a comma delimited string.
 		/// </summary>
 		/// <param name="value"></param>
 		/// <returns></returns>
-		public static string ListToDelimitedString(List<string> value)
+		public static string ListToDelimitedString(StringCollection value)
 		{
 			return ListToDelimitedString(value, ',');
 		}
 
 		/// <summary>
-		/// Converts a List<string> into a delimited string
+		/// Converts a StringCollection into a delimited string
 		/// </summary>
 		/// <param name="value"></param>
 		/// <param name="delimiter"></param>
 		/// <returns></returns>
-		public static string ListToDelimitedString(List<string> value, char delimiter)
+		public static string ListToDelimitedString(StringCollection value, char delimiter)
 		{
-			string result = string.Join(",", value.ToArray());
+			string result = string.Join(delimiter.ToString(), value.ToArray());
 			return result;
 		}
 
@@ -373,7 +374,7 @@ namespace FoundationClassLibrary.Data
 		/// <returns></returns>
 		public static string GetValueFromDelimitedString(int index, string value, char delimiter)
 		{
-			List<string> list = DelimitedStringToStringList(value, delimiter);
+			StringCollection list = DelimitedStringToStringList(value, delimiter);
 			return list[index];
 		}
 
@@ -382,7 +383,7 @@ namespace FoundationClassLibrary.Data
 		/// </summary>
 		/// <param name="value"></param>
 		/// <returns></returns>
-		public static List<int> DelimitedStringToIntList(string value)
+		public static IntCollection DelimitedStringToIntList(string value)
 		{
 			return DelimitedStringToIntList(value, ',');
 		}

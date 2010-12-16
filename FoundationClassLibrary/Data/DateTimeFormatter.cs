@@ -3,7 +3,7 @@ using System.Globalization;
 
 namespace FoundationClassLibrary.Data
 {
-	public class DateTimeFormatter
+	public static class DateTimeFormatter
 	{
 		#region value mapping, turn DateTime into other values safely.
 		/// <summary>

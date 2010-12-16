@@ -2,13 +2,18 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Reflection;
+using FoundationClassLibrary.Data.Collection;
 
 namespace FoundationClassLibrary.Data
 {
-	public class EnumFormatter
+	public static class EnumFormatter
 	{
 		public static string ToString(Enum value)
 		{
+			//Validate params
+			if (value == null)
+				throw new ArgumentNullException("value");
+			
 			FieldInfo fi = value.GetType().GetField(value.ToString());
 			DescriptionAttribute[] attributes = (DescriptionAttribute[])fi.GetCustomAttributes(typeof(DescriptionAttribute), false);
 			if (attributes.Length > 0)
@@ -23,6 +28,11 @@ namespace FoundationClassLibrary.Data
 
 		public static object ToEnum(string value, System.Type enumType)
 		{
+			//validate params
+			if (value == null)
+				throw new ArgumentNullException("value");
+			
+
 			string[] names = Enum.GetNames(enumType);
 			foreach (string name in names)
 			{
@@ -46,9 +56,9 @@ namespace FoundationClassLibrary.Data
 		/// </summary>
 		/// <param name="enumType">>typeof(your enum type)
 		/// <returns>A list of KeyValuePairs with enum values and descriptions</returns>
-		public static List<KeyValuePair<int, string>> GetValuesAndDescription(System.Type enumType)
+		public static KeyValuePairIntStringCollection GetValuesAndDescription(System.Type enumType)
 		{
-			List<KeyValuePair<int, string>> kvPairList = new List<KeyValuePair<int, string>>();
+			KeyValuePairIntStringCollection kvPairList = new KeyValuePairIntStringCollection();
 
 			foreach (Enum enumValue in Enum.GetValues(enumType))
 			{

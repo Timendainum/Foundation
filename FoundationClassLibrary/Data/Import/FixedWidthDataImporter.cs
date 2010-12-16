@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data;
+using FoundationClassLibrary.Data.Collection;
 
 namespace FoundationClassLibrary.Data.Import
 {
@@ -9,15 +11,15 @@ namespace FoundationClassLibrary.Data.Import
 		#region constructors
 		public FixedWidthDataImporter()
 		{
-			RowDelimiters = new List<string>();
-			Columns = new List<FixedWidthColumn>();
+			RowDelimiters = new StringCollection();
+			Columns = new FixedWidthColumnCollection();
 			TableName = "ImportedTable";
 		}
 		#endregion
 
 		#region properties
-		public List<string> RowDelimiters { get; set; }
-		public List<FixedWidthColumn> Columns { get; set; }
+		public StringCollection RowDelimiters { get; set; }
+		public FixedWidthColumnCollection Columns { get; set; }
 		public string TableName { get; set; }
 		#endregion
 		
@@ -29,6 +31,9 @@ namespace FoundationClassLibrary.Data.Import
 		/// <returns></returns>
 		public virtual DataSet ImportData(string rawContents)
 		{
+			if (string.IsNullOrEmpty(rawContents))
+				throw new ArgumentNullException(rawContents);
+
 			//Prepare result
 			DataSet result = new DataSet();
 			result.Tables.Add(TableName);
@@ -71,5 +76,14 @@ namespace FoundationClassLibrary.Data.Import
 			return result;
 		}
 		#endregion
+	}
+
+	public class FixedWidthColumnCollection : Collection<FixedWidthColumn>
+	{
+		public FixedWidthColumnCollection()
+			: base(new List<FixedWidthColumn>())
+		{
+			
+		}
 	}
 }
