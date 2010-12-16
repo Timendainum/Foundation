@@ -1,31 +1,36 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Collections.ObjectModel;
+using FoundationClassLibrary.Data.Collection;
 
 namespace FoundationClassLibrary.Data.Import
 {
+	/// <summary>
+	/// Imports data from a delimited string and outputs a dataset.
+	/// </summary>
 	public class DelimitedDataImporter : Base
 	{
 		#region constructors
 		public DelimitedDataImporter()
 		{
-			FieldDelimiters = new List<string>();
-			RowDelimiters = new List<string>();
-			Columns = new List<Column>();
+			FieldDelimiters = new StringCollection();
+			RowDelimiters = new StringCollection();
+			Columns = new ColumnsCollection();
 			TableName = "ImportedTable";
 			FirstRowContainsColumnNames = true;
 		}
+
+
 		#endregion
 
 		#region properties
-		public List<string> FieldDelimiters { get; set; }
-		public List<string> RowDelimiters { get; set; }
-		public List<Column> Columns { get; set; }
+		public StringCollection FieldDelimiters { get; set; }
+		public StringCollection RowDelimiters { get; set; }
+		public ColumnsCollection Columns { get; set; }
 		public string TableName { get; set; }
 		public bool FirstRowContainsColumnNames { get; set; }
 		#endregion
-		
+
 		#region public methods
 		/// <summary>
 		/// This turns a properly formed delimited string into a dataset. The method expects the first row to be column names. Each successive line should be data until EOF.
@@ -34,13 +39,17 @@ namespace FoundationClassLibrary.Data.Import
 		/// <returns></returns>
 		public virtual DataSet ImportData(string rawContents)
 		{
+			//validate parameters
+			if (string.IsNullOrEmpty(rawContents))
+				throw new ArgumentNullException("rawcontents");
+			
 			//Prepare result
 			DataSet result = new DataSet();
 			result.Tables.Add(TableName);
-			
+
 			//split file into lines
 			string[] dataRowsArray = rawContents.Split(RowDelimiters.ToArray(), StringSplitOptions.RemoveEmptyEntries);
-			
+
 			//Create generic list from string array
 			List<string> dataRows = new List<string>();
 			foreach (string row in dataRowsArray)

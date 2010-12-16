@@ -1,9 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
+using FoundationClassLibrary.Data.Collection;
 
 namespace FoundationClassLibrary.Data
 {
-	public class MonthFormatter
+	public static class MonthFormatter
 	{
 		/// <summary>
 		/// Converts month int to 3 character month abbreviation.
@@ -12,6 +12,10 @@ namespace FoundationClassLibrary.Data
 		/// <returns></returns>
 		public static string MonthIntToThreeCharacterMonth(int month)
 		{
+			//validate params
+			if (month < 1 || month > 12)
+				throw new ArgumentOutOfRangeException("month");
+
 			string month3 = string.Empty;
 
 			switch (month)
@@ -51,9 +55,6 @@ namespace FoundationClassLibrary.Data
 					break;
 				case 12:
 					month3 = "Dec";
-					break;
-				default:
-					throw new Exception("The month int that was provided was out of range.");
 					break;
 			}
 
@@ -121,14 +122,13 @@ namespace FoundationClassLibrary.Data
 		/// </summary>
 		/// <param name="month"></param>
 		/// <returns></returns>
-		public static List<int> MonthIntToMonthYtdIntList(int month)
+		public static IntCollection MonthIntToMonthYtdIntList(int month)
 		{
+			//validate params
 			if (month < 1 || month > 12)
-			{
 				throw new Exception("The month int given was out of range.");
-			}
 			
-			List<int> monthList = new List<int>();
+			IntCollection monthList = new IntCollection();
 			for (int i = 0; i <= month ; i++)
 			{
 				monthList.Add(i);
@@ -142,10 +142,10 @@ namespace FoundationClassLibrary.Data
 		/// </summary>
 		/// <param name="month"></param>
 		/// <returns></returns>
-		public static List<string> MonthIntToThreeCharacterMonthYtdList(int month)
+		public static StringCollection MonthIntToThreeCharacterMonthYtdList(int month)
 		{
-			List<int> monthIntList = MonthIntToMonthYtdIntList(month);
-			List<string> threeCharacterMonthYtdList = MonthIntListToThreeCharacterMonthList(monthIntList);
+			IntCollection monthIntList = MonthIntToMonthYtdIntList(month);
+			StringCollection threeCharacterMonthYtdList = MonthIntListToThreeCharacterMonthList(monthIntList);
 			return threeCharacterMonthYtdList;
 		}
 
@@ -154,10 +154,10 @@ namespace FoundationClassLibrary.Data
 		/// </summary>
 		/// <param name="month3"></param>
 		/// <returns></returns>
-		public static List<int> ThreeCharacterMonthToMonthYtdIntList(string month3)
+		public static IntCollection ThreeCharacterMonthToMonthYtdIntList(string month3)
 		{
 			int month = ThreeCharacterMonthToMonthInt(month3);
-			List<int> monthIntList = MonthIntToMonthYtdIntList(month);
+			IntCollection monthIntList = MonthIntToMonthYtdIntList(month);
 			return monthIntList;
 		}
 
@@ -166,10 +166,10 @@ namespace FoundationClassLibrary.Data
 		/// </summary>
 		/// <param name="month3"></param>
 		/// <returns></returns>
-		public static List<string> ThreeCharacterMonthToThreeCharacterMonthYtdList(string month3)
+		public static StringCollection ThreeCharacterMonthToThreeCharacterMonthYtdList(string month3)
 		{
-			List<int> monthIntList = ThreeCharacterMonthToMonthYtdIntList(month3);
-			List<string> threeCharacterMonthList = MonthIntListToThreeCharacterMonthList(monthIntList);
+			IntCollection monthIntList = ThreeCharacterMonthToMonthYtdIntList(month3);
+			StringCollection threeCharacterMonthList = MonthIntListToThreeCharacterMonthList(monthIntList);
 			return threeCharacterMonthList;
 		}
 
@@ -178,9 +178,15 @@ namespace FoundationClassLibrary.Data
 		/// </summary>
 		/// <param name="monthList"></param>
 		/// <returns></returns>
-		public static List<string> MonthIntListToThreeCharacterMonthList(List<int> monthList)
+		public static StringCollection MonthIntListToThreeCharacterMonthList(IntCollection monthList)
 		{
-			List<string> threeCharacterMonthList = new List<string>();
+			//Validate params
+			if (monthList == null)
+				throw new ArgumentNullException("monthList");
+			if (monthList.Count < 1)
+				throw new ArgumentOutOfRangeException("monthList");
+			
+			StringCollection threeCharacterMonthList = new StringCollection();
 			foreach (int month in monthList)
 			{
 				threeCharacterMonthList.Add(MonthIntToThreeCharacterMonth(month));
@@ -194,9 +200,9 @@ namespace FoundationClassLibrary.Data
 		/// </summary>
 		/// <param name="monthList"></param>
 		/// <returns></returns>
-		public static List<int> ThreeCharacterMonthListToMonthIntList(List<string> threeCharacterMonthList)
+		public static IntCollection ThreeCharacterMonthListToMonthIntList(StringCollection threeCharacterMonthList)
 		{
-			List<int> monthList = new List<int>();
+			IntCollection monthList = new IntCollection();
 			foreach (string month in threeCharacterMonthList)
 			{
 				monthList.Add(ThreeCharacterMonthToMonthInt(month));

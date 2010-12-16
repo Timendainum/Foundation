@@ -5,7 +5,7 @@ namespace FoundationClassLibrary.Data
 	/// <summary>
 	/// This class is used for transforming a generic object to a properly casted value in a null safe fashion.
 	/// </summary>
-	public class ObjectFormatter
+	public static class ObjectFormatter
 	{
 		/// <summary>
 		/// Transforms passed object into a DateTime.
@@ -98,7 +98,7 @@ namespace FoundationClassLibrary.Data
 				{
 					return Convert.ToSingle(o);
 				}
-				catch(Exception)
+				catch(InvalidCastException)
 				{
 					return float.MinValue;
 				}

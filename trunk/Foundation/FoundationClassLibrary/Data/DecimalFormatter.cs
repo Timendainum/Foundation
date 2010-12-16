@@ -1,6 +1,6 @@
 namespace FoundationClassLibrary.Data
 {
-	public class DecimalFormatter
+	public static class DecimalFormatter
 	{
 		#region value mapping, turn DateTime into other values safely.
 		/// <summary>

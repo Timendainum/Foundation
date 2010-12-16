@@ -69,12 +69,18 @@
   <ItemGroup>
     <Compile Include="Base.cs" />
     <Compile Include="DataBase\EWildCardFieldType.cs" />
+    <Compile Include="DataBase\WildCardDefinitionCollection.cs" />
     <Compile Include="Data\BoolFormatter.cs" />
+    <Compile Include="Data\Collection\IntCollection.cs" />
+    <Compile Include="Data\Collection\KeyValuePairIntStringCollection.cs" />
+    <Compile Include="Data\Collection\StringCollection.cs" />
     <Compile Include="Data\EnumFormatter.cs" />
     <Compile Include="Data\Import\Column.cs" />
+    <Compile Include="Data\Import\ColumnsCollection.cs" />
     <Compile Include="Data\Import\FixedWidthColumn.cs" />
     <Compile Include="Data\Import\FixedWidthDataImporter.cs" />
     <Compile Include="Data\MonthFormatter.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Log\ELoggerDataAccessType.cs" />
     <Compile Include="Log\ESeverity.cs" />
     <Compile Include="Log\EType.cs" />
@@ -119,6 +125,7 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -1,6 +1,6 @@
 namespace FoundationClassLibrary.Data
 {
-	public class IntFormatter
+	public static class IntFormatter
 	{
 		#region value mapping, turn other values into strings safely.
 		/// <summary>

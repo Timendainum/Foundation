@@ -5,7 +5,7 @@ using System.Data.Common;
 
 namespace FoundationClassLibrary.DataBase
 {
-	public class SortingHelper
+	public static class SortingHelper
 	{
 		public static void AddSortingClause(DbCommand sqlCommand, string sortBy)
 		{
