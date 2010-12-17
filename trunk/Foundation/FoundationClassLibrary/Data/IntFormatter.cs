@@ -90,14 +90,14 @@ namespace FoundationClassLibrary.Data
 		#endregion
 
 		#region null/min safing methods
-		public static int NullsafeZero(int value)
+		public static int NullSafeZero(int value)
 		{
 			if (value == int.MinValue)
 				value = 0;
 			return value;
 		}
 
-		public static int? NullsafeZero(int? value)
+		public static int? NullSafeZero(int? value)
 		{
 			if (value == null)
 				value = 0;

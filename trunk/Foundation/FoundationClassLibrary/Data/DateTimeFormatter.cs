@@ -72,21 +72,21 @@ namespace FoundationClassLibrary.Data
 		}
 
 		#region ODBC format
-		public static string ToODBCDate(DateTime value)
+		public static string ToOdbcDate(DateTime value)
 		{
 			return ToString(value, "yyyy-MM-dd", string.Empty);
 		}
 
-		public static string ToODBCDate(DateTime value, string nullText)
+		public static string ToOdbcDate(DateTime value, string nullText)
 		{
 			return ToString(value, "yyyy-MM-dd", nullText);
 		}
-		public static string ToODBCDateTime(DateTime value)
+		public static string ToOdbcDateTime(DateTime value)
 		{
 			return ToString(value, "yyyy-MM-dd hh:mm:ss", string.Empty);
 		}
 
-		public static string ToODBCDateTime(DateTime value, string nullText)
+		public static string ToOdbcDateTime(DateTime value, string nullText)
 		{
 			return ToString(value, "yyyy-MM-dd hh:mm:ss", nullText);
 		}
