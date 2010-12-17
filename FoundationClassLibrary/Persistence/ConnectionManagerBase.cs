@@ -1,20 +1,15 @@
 ﻿using System;
-using System.Configuration;
 using FoundationClassLibrary.Log;
 
 namespace FoundationClassLibrary.Persistence
 {
-    public abstract class ConnectionManagerBase : Base, IDisposable
+    public abstract class ConnectionManagerBase : Base
     {
 		#region disposal
-		public override void Dispose()
+		public void Dispose()
 		{
-			Logger.Debug("Dispose() start", ToString());
-
 			ConnectionString = null;
 			DefaultConnectionString = null;
-
-			Logger.Debug("Dispose() end", ToString());
 		}
 		#endregion
 

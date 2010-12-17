@@ -36,41 +36,49 @@ namespace FoundationClassLibrary.Data.Import
 
 			//Prepare result
 			DataSet result = new DataSet();
-			result.Tables.Add(TableName);
-			
-			//split file into lines
-			string[] dataRowsArray = rawContents.Split(RowDelimiters.ToArray(), StringSplitOptions.RemoveEmptyEntries);
-			
-			////////////////////////////////////////////////
-			//create DataSet out of file data
-
-			//Headings
-			foreach (FixedWidthColumn col in Columns)
+			try
 			{
-				result.Tables[TableName].Columns.Add(col.Name);
-			}
+				result.Tables.Add(TableName);
 
-			//determine max line length we are going to parse
-			int maxLineLength = Columns[Columns.Count - 1].BeginningCharacter + Columns[Columns.Count - 1].FieldLength;
+				//split file into lines
+				string[] dataRowsArray = rawContents.Split(RowDelimiters.ToArray(), StringSplitOptions.RemoveEmptyEntries);
 
-			//Import data
-			foreach (string fileRow in dataRowsArray)
-			{
-				string fileRowFixed = fileRow;
-				if (fileRowFixed.Length < maxLineLength)
-					fileRowFixed = fileRowFixed.PadRight(maxLineLength, ' ');
+				////////////////////////////////////////////////
+				//create DataSet out of file data
 
-				DataRow newRow = result.Tables[0].NewRow();
-
+				//Headings
 				foreach (FixedWidthColumn col in Columns)
 				{
-					string rawString = fileRowFixed.Substring(col.BeginningCharacter, col.FieldLength);
-					rawString = StringFormatter.RemoveInvisibleCharacters(rawString);
-					rawString = rawString.Trim();
-					newRow[col.Name] = rawString;
+					result.Tables[TableName].Columns.Add(col.Name);
 				}
 
-				result.Tables[0].Rows.Add(newRow);
+				//determine max line length we are going to parse
+				int maxLineLength = Columns[Columns.Count - 1].BeginningCharacter + Columns[Columns.Count - 1].FieldLength;
+
+				//Import data
+				foreach (string fileRow in dataRowsArray)
+				{
+					string fileRowFixed = fileRow;
+					if (fileRowFixed.Length < maxLineLength)
+						fileRowFixed = fileRowFixed.PadRight(maxLineLength, ' ');
+
+					DataRow newRow = result.Tables[0].NewRow();
+
+					foreach (FixedWidthColumn col in Columns)
+					{
+						string rawString = fileRowFixed.Substring(col.BeginningCharacter, col.FieldLength);
+						rawString = StringFormatter.RemoveInvisibleCharacters(rawString);
+						rawString = rawString.Trim();
+						newRow[col.Name] = rawString;
+					}
+
+					result.Tables[0].Rows.Add(newRow);
+				}
+			}
+			catch
+			{
+				result.Dispose();
+				throw;
 			}
 
 			return result;

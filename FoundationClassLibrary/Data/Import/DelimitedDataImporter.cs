@@ -41,67 +41,75 @@ namespace FoundationClassLibrary.Data.Import
 		{
 			//validate parameters
 			if (string.IsNullOrEmpty(rawContents))
-				throw new ArgumentNullException("rawcontents");
+				throw new ArgumentNullException("rawContents");
 			
 			//Prepare result
 			DataSet result = new DataSet();
-			result.Tables.Add(TableName);
-
-			//split file into lines
-			string[] dataRowsArray = rawContents.Split(RowDelimiters.ToArray(), StringSplitOptions.RemoveEmptyEntries);
-
-			//Create generic list from string array
-			List<string> dataRows = new List<string>();
-			foreach (string row in dataRowsArray)
+			try
 			{
-				dataRows.Add(row);
-			}
+				result.Tables.Add(TableName);
 
-			////////////////////////////////////////////////
-			//create DataSet out of file data
+				//split file into lines
+				string[] dataRowsArray = rawContents.Split(RowDelimiters.ToArray(), StringSplitOptions.RemoveEmptyEntries);
 
-			//Headings
-			//First row has column names
-			if (FirstRowContainsColumnNames)
-			{
-				//Create columns with headings from first row
-				string[] columns = dataRows[0].Split(FieldDelimiters.ToArray(), StringSplitOptions.RemoveEmptyEntries);
-				foreach (string columnName in columns)
+				//Create generic list from string array
+				List<string> dataRows = new List<string>();
+				foreach (string row in dataRowsArray)
 				{
-					result.Tables[TableName].Columns.Add(columnName);
+					dataRows.Add(row);
 				}
-				//Remove header row from dataRows list
-				dataRows.RemoveAt(0);
-			}
-			//Column names in Columns property
-			else if (Columns.Count > 0)
-			{
-				int numberOfDataColumns = dataRows[0].Split(FieldDelimiters.ToArray(), StringSplitOptions.RemoveEmptyEntries).Length;
-				if (Columns.Count != numberOfDataColumns)
-					throw new Exception("Number of columns defined in Columns is not the same as the number of columns in the rawContents.");
-				foreach (Column col in Columns)
-				{
-					result.Tables[TableName].Columns.Add(col.Name);
-				}
-			}
-			//No column names defined
-			else
-			{
-				//Create columns
-				string[] columns = dataRows[0].Split(FieldDelimiters.ToArray(), StringSplitOptions.RemoveEmptyEntries);
-				int rowCounter = 1;
-				foreach (string columnName in columns)
-				{
-					result.Tables[TableName].Columns.Add("column" + rowCounter.ToString());
-					rowCounter++;
-				}
-			}
 
-			//Import data
-			foreach (string fileRow in dataRows)
+				////////////////////////////////////////////////
+				//create DataSet out of file data
+
+				//Headings
+				//First row has column names
+				if (FirstRowContainsColumnNames)
+				{
+					//Create columns with headings from first row
+					string[] columns = dataRows[0].Split(FieldDelimiters.ToArray(), StringSplitOptions.RemoveEmptyEntries);
+					foreach (string columnName in columns)
+					{
+						result.Tables[TableName].Columns.Add(columnName);
+					}
+					//Remove header row from dataRows list
+					dataRows.RemoveAt(0);
+				}
+				//Column names in Columns property
+				else if (Columns.Count > 0)
+				{
+					int numberOfDataColumns = dataRows[0].Split(FieldDelimiters.ToArray(), StringSplitOptions.RemoveEmptyEntries).Length;
+					if (Columns.Count != numberOfDataColumns)
+						throw new Exception("Number of columns defined in Columns is not the same as the number of columns in the rawContents.");
+					foreach (Column col in Columns)
+					{
+						result.Tables[TableName].Columns.Add(col.Name);
+					}
+				}
+				//No column names defined
+				else
+				{
+					//Create columns
+					string[] columns = dataRows[0].Split(FieldDelimiters.ToArray(), StringSplitOptions.RemoveEmptyEntries);
+					int rowCounter = 1;
+					foreach (string columnName in columns)
+					{
+						result.Tables[TableName].Columns.Add("column" + rowCounter.ToString());
+						rowCounter++;
+					}
+				}
+
+				//Import data
+				foreach (string fileRow in dataRows)
+				{
+					//Populate Data
+					result.Tables[TableName].Rows.Add(fileRow.Split(FieldDelimiters.ToArray(), StringSplitOptions.RemoveEmptyEntries));
+				}
+			}
+			catch
 			{
-				//Populate Data
-				result.Tables[TableName].Rows.Add(fileRow.Split(FieldDelimiters.ToArray(), StringSplitOptions.RemoveEmptyEntries));
+				result.Dispose();
+				throw;
 			}
 
 			return result;

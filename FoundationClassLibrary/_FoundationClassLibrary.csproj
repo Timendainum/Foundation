@@ -54,6 +54,12 @@
     <WarningLevel>4</WarningLevel>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>MyKeyFile.pfx</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
@@ -68,8 +74,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Base.cs" />
-    <Compile Include="DataBase\EWildCardFieldType.cs" />
-    <Compile Include="DataBase\WildCardDefinitionCollection.cs" />
     <Compile Include="Data\BoolFormatter.cs" />
     <Compile Include="Data\Collection\IntCollection.cs" />
     <Compile Include="Data\Collection\KeyValuePairIntStringCollection.cs" />
@@ -91,11 +95,8 @@
     <Compile Include="Persistence\EOperationType.cs" />
     <Compile Include="Persistence\ExceptionRecordNotFound.cs" />
     <Compile Include="Persistence\SqlExecutorBase.cs" />
-    <Compile Include="DataBase\DatabaseFormatter.cs" />
-    <Compile Include="DataBase\EWildCardType.cs" />
-    <Compile Include="DataBase\SortingHelper.cs" />
-    <Compile Include="DataBase\WildCardDefinition.cs" />
-    <Compile Include="DataBase\WildCardHelper.cs" />
+    <Compile Include="Database\DatabaseFormatter.cs" />
+    <Compile Include="Database\SortingHelper.cs" />
     <Compile Include="Data\ControlCharacters.cs" />
     <Compile Include="Data\DateTimeFormatter.cs" />
     <Compile Include="Data\DecimalFormatter.cs" />
@@ -125,7 +126,9 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="MyKeyFile.pfx" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

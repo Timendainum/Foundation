@@ -1,7 +1,7 @@
 using System;
 using System.Data.Common;
 
-namespace FoundationClassLibrary.DataBase
+namespace FoundationClassLibrary.Database
 {
 	public static class SortingHelper
 	{

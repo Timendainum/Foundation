@@ -2,7 +2,7 @@ using System;
 using System.Data.SqlTypes;
 
 
-namespace FoundationClassLibrary.DataBase
+namespace FoundationClassLibrary.Database
 {
 	/// <summary>
 	/// This class transforms values into safe formats for sending to and recovering from databases.
@@ -173,7 +173,7 @@ namespace FoundationClassLibrary.DataBase
 			return String.Format("'{0}'", value);
 		}
 
-		public static string SingleQuoteAndWildCard(string value)
+		public static string SingleQuoteAndWildcard(string value)
 		{
 			return String.Format("'%{0}%'", value);
 		}

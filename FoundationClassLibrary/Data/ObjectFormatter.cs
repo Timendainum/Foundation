@@ -12,15 +12,15 @@ namespace FoundationClassLibrary.Data
 		/// </summary>
 		/// <param name="value">Object to be transformed.</param>
 		/// <returns>Returns DateTime.MinValue if null.</returns>
-		public static DateTime ToDate(object o)
+		public static DateTime ToDate(object value)
 		{
 			try
 			{
 
-				if (o == DBNull.Value)
+				if (value == DBNull.Value)
 					return DateTime.MinValue;
 				else
-					return Convert.ToDateTime(o);
+					return Convert.ToDateTime(value);
 			}
 			catch (FormatException)
 			{
@@ -34,13 +34,13 @@ namespace FoundationClassLibrary.Data
 		/// <param name="value">Object to be transformed.</param>
 		/// <param name="defaultValue">Default value.</param>
 		/// <returns>Returns default value if null.</returns>
-		public static DateTime ToDate(object o, DateTime defaultValue)
+		public static DateTime ToDate(object value, DateTime defaultValue)
 		{
-			DateTime value = ToDate(o);
-			if (value == DateTime.MinValue)
+			DateTime result = ToDate(value);
+			if (result == DateTime.MinValue)
 				return defaultValue;
 			else
-				return value;
+				return result;
 		}
 
 		/// <summary>
@@ -48,10 +48,10 @@ namespace FoundationClassLibrary.Data
 		/// </summary>
 		/// <param name="value">Object to be transformed.</param>
 		/// <returns>Returns Int32.MinValue on failure.</returns>
-		public static int ToInt(object o)
+		public static int ToInt(object value)
 		{
-			if (o != null)
-				return StringFormatter.ToInt(o.ToString());
+			if (value != null)
+				return StringFormatter.ToInt(value.ToString());
 			else
 				return int.MinValue;
 		}
@@ -62,13 +62,13 @@ namespace FoundationClassLibrary.Data
 		/// <param name="value">Object to be transformed.</param>
 		/// <param name="defaultValue">Default value to return.</param>
 		/// <returns>Returns Int32.MinValue on failure.</returns>
-		public static int ToInt(object o, int defaultValue)
+		public static int ToInt(object value, int defaultValue)
 		{
-			int value = ToInt(o);
-			if (value == int.MinValue)
+			int result = ToInt(value);
+			if (result == int.MinValue)
 				return defaultValue;
 			else
-				return value;
+				return result;
 		}
 
 		/// <summary>
@@ -76,27 +76,27 @@ namespace FoundationClassLibrary.Data
 		/// </summary>
 		/// <param name="value">Object to be transformed.</param>
 		/// <returns>Returns string.Empty on failure.</returns>
-		public static String ToString(object o)
+		public static String ToString(object value)
 		{
-			if (o == DBNull.Value)
+			if (value == DBNull.Value)
 				return String.Empty;
 			else
-				return Convert.ToString(o);
+				return Convert.ToString(value);
 		}
 		/// <summary>
 		/// Transforms passed object to a float.
 		/// </summary>
 		/// <param name="value">Object to be transformed.</param>
 		/// <returns>Returns float.MinValue on failure.</returns>
-		public static float ToFloat(Object o)
+		public static float ToFloat(object value)
 		{
-			if (o == DBNull.Value)
+			if (value == DBNull.Value)
 				return float.MinValue;
 			else
 			{
 				try
 				{
-					return Convert.ToSingle(o);
+					return Convert.ToSingle(value);
 				}
 				catch(InvalidCastException)
 				{
@@ -111,13 +111,13 @@ namespace FoundationClassLibrary.Data
 		/// <param name="value">Object to be transformed.</param>
 		/// <param name="defaultValue">Default value on conversion failure.</param>
 		/// <returns>Returns defaultValue on failure.</returns>
-		public static float ToFloat(Object o, float defaultValue)
+		public static float ToFloat(object value, float defaultValue)
 		{
-			float value = ToFloat(o);
-			if (value == float.MinValue)
+			float result = ToFloat(value);
+			if (result == float.MinValue)
 				return defaultValue;
 			else
-				return value;
+				return result;
 		}
 
 		/// <summary>
@@ -125,32 +125,32 @@ namespace FoundationClassLibrary.Data
 		/// </summary>
 		/// <param name="value">Object to be transformed.</param>
 		/// <returns>Returns false on failure.</returns>
-		public static bool ToBool(object o)
+		public static bool ToBool(object value)
 		{
-			if (o == DBNull.Value)
+			if (value == DBNull.Value)
 				return false;
-			else if (o is string)
+			else if (value is string)
 			{
-				string val = (o as string).ToLower();
+				string val = (value as string).ToLower();
 				if (val.Equals("true") || val.Equals("y") || val.Equals("yes"))
 					return true;
 				else
 					return false;
 			}
 			else
-				return (bool)Convert.ToBoolean(o);
+				return (bool)Convert.ToBoolean(value);
 		}
 		/// <summary>
 		/// Transforms passed object to a decimal.
 		/// </summary>
 		/// <param name="value">Object to be transformed.</param>
 		/// <returns>Returns decimal.MinValue on failure.</returns>
-		public static decimal ToDecimal(object o)
+		public static decimal ToDecimal(object value)
 		{
-			if (o == DBNull.Value)
+			if (value == DBNull.Value)
 				return decimal.MinValue;
 			else
-				return Convert.ToDecimal(o);
+				return Convert.ToDecimal(value);
 		}
 
 		/// <summary>
@@ -159,13 +159,13 @@ namespace FoundationClassLibrary.Data
 		/// <param name="value">Object to be transformed.</param>
 		/// <param name="defaultValue">Default value to return.</param>
 		/// <returns>Returns defaultValue on failure.</returns>
-		public static decimal ToDecimal(object o, decimal defaultValue)
+		public static decimal ToDecimal(object value, decimal defaultValue)
 		{
-			decimal value = ToDecimal(o);
-			if (value == decimal.MinValue)
+			decimal result = ToDecimal(value);
+			if (result == decimal.MinValue)
 				return defaultValue;
 			else
-				return value;
+				return result;
 		}
 	}
 }

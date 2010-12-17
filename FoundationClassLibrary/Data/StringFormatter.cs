@@ -56,73 +56,73 @@ namespace FoundationClassLibrary.Data
         /// <summary>
         /// Returns the specified number of characters from the left side of the string.
         /// </summary>
-        /// <param name="param">String to parse.</param>
+        /// <param name="value">String to parse.</param>
         /// <param name="length">Number of characters to return.</param>
         /// <returns>Lefted string.</returns>
-        public static string Left(string param, int length)
+        public static string Left(string value, int length)
         {
             //we start at 0 since we want to get the characters starting from the
             //left and with the specified lenght and assign it to a variable
             string result = string.Empty;
-            param = NullSafe(param);
-            if (param.Length > length)
-                result = param.Substring(0, length);
+            value = NullSafe(value);
+            if (value.Length > length)
+                result = value.Substring(0, length);
             else
-                result = param;
+                result = value;
             return result;
         }
 
         /// <summary>
         /// Returns the specified number of characters from the left side of the string.
         /// </summary>
-        /// <param name="param"></param>
+        /// <param name="value"></param>
         /// <param name="length"></param>
         /// <returns></returns>
-        public static string Right(string param, int length)
+        public static string Right(string value, int length)
         {
             //start at the index based on the lenght of the sting minus
             //the specified lenght and assign it a variable
             string result = string.Empty;
-            param = NullSafe(param);
-            if (param.Length > length)
-                result = param.Substring(param.Length - length, length);
+            value = NullSafe(value);
+            if (value.Length > length)
+                result = value.Substring(value.Length - length, length);
             else
-                result = param;
+                result = value;
             return result;
         }
 
         /// <summary>
         /// Returns a part of a string starting at the index specified. Returns number of characters specified in length.
         /// </summary>
-        /// <param name="param"></param>
+        /// <param name="value"></param>
         /// <param name="startIndex"></param>
         /// <param name="length"></param>
         /// <returns></returns>
-        public static string Mid(string param, int startIndex, int length)
+        public static string Mid(string value, int startIndex, int length)
         {
             //start at the specified index in the string ang get N number of
             //characters depending on the lenght and assign it to a variable
             string result = string.Empty;
-            param = NullSafe(param);
-            if (param.Length > length)
-                result = param.Substring(startIndex, length);
+            value = NullSafe(value);
+            if (value.Length > length)
+                result = value.Substring(startIndex, length);
             return result;
         }
 
         /// <summary>
         /// Returns a part of a string starting at the start index.
         /// </summary>
-        /// <param name="param"></param>
+        /// <param name="value"></param>
         /// <param name="startIndex"></param>
         /// <returns></returns>
-        public static string Mid(string param, int startIndex)
+        public static string Mid(string value, int startIndex)
         {
             //start at the specified index and return all characters after it
             //and assign it to a variable
             string result = string.Empty;
-            param = NullSafe(param);
-            if (param.Length > startIndex)
-                result = param.Substring(startIndex);
+            value = NullSafe(value);
+            if (value.Length > startIndex)
+                result = value.Substring(startIndex);
             return result;
         }
         #endregion
@@ -131,14 +131,14 @@ namespace FoundationClassLibrary.Data
         /// <summary>
         /// This returns an empty string if the passed string is null
         /// </summary>
-        /// <param name="param"></param>
+        /// <param name="value"></param>
         /// <returns></returns>
-        public static string NullSafe(string param)
+        public static string NullSafe(string value)
         {
-            if (string.IsNullOrEmpty(param))
+            if (string.IsNullOrEmpty(value))
                 return string.Empty;
             else
-                return param;
+                return value;
         }
 
         /// <summary>
@@ -147,7 +147,7 @@ namespace FoundationClassLibrary.Data
         /// </summary>
         /// <param name="fileName"></param>
         /// <returns></returns>
-        public static string SafenFileName(string fileName)
+        public static string SafeFileName(string fileName)
         {
             string processedFileName = NullSafe(fileName);
 
@@ -402,7 +402,7 @@ namespace FoundationClassLibrary.Data
 			if (value == null)
 				value = string.Empty;
 
-			return value.Replace(ControlCharacters.CrLf, "<br />");
+			return value.Replace(ControlCharacters.CRLF, "<br />");
 		}
 
 		public static string AddHtmlBreaksToTextDouble(string value)
@@ -411,7 +411,7 @@ namespace FoundationClassLibrary.Data
 			if (value == null)
 				value = string.Empty;
 
-			return value.Replace(ControlCharacters.CrLf + ControlCharacters.CrLf, "<br /><br />");
+			return value.Replace(ControlCharacters.CRLF + ControlCharacters.CRLF, "<br /><br />");
 		}
 
 		public static string RemoveDomainFromUserName(string value)
@@ -431,9 +431,9 @@ namespace FoundationClassLibrary.Data
 			//clean out invisible chars
 			result = result.Replace(ControlCharacters.NullChar, string.Empty);
 
-			result = result.Replace(ControlCharacters.Cr, string.Empty);
+			result = result.Replace(ControlCharacters.CR, string.Empty);
 
-			result = result.Replace(ControlCharacters.Lf, string.Empty);
+			result = result.Replace(ControlCharacters.LF, string.Empty);
 
 			return result;
 		}
