@@ -44,6 +44,7 @@
     <WarningLevel>4</WarningLevel>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
     <PlatformTarget>AnyCPU</PlatformTarget>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -93,7 +94,7 @@
     <Compile Include="Log\LoggerDataAccessTextFile.cs" />
     <Compile Include="Persistence\ConnectionManagerBase.cs" />
     <Compile Include="Persistence\EOperationType.cs" />
-    <Compile Include="Persistence\ExceptionRecordNotFound.cs" />
+    <Compile Include="Persistence\RecordNotFoundException.cs" />
     <Compile Include="Persistence\SqlExecutorBase.cs" />
     <Compile Include="Database\DatabaseFormatter.cs" />
     <Compile Include="Database\SortingHelper.cs" />

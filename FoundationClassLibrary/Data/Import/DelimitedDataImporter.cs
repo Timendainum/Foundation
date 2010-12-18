@@ -24,9 +24,9 @@ namespace FoundationClassLibrary.Data.Import
 		#endregion
 
 		#region properties
-		public StringCollection FieldDelimiters { get; set; }
-		public StringCollection RowDelimiters { get; set; }
-		public ColumnsCollection Columns { get; set; }
+		public StringCollection FieldDelimiters { get; private set; }
+		public StringCollection RowDelimiters { get; private set; }
+		public ColumnsCollection Columns { get; private set; }
 		public string TableName { get; set; }
 		public bool FirstRowContainsColumnNames { get; set; }
 		#endregion
@@ -80,7 +80,7 @@ namespace FoundationClassLibrary.Data.Import
 				{
 					int numberOfDataColumns = dataRows[0].Split(FieldDelimiters.ToArray(), StringSplitOptions.RemoveEmptyEntries).Length;
 					if (Columns.Count != numberOfDataColumns)
-						throw new Exception("Number of columns defined in Columns is not the same as the number of columns in the rawContents.");
+						throw new ArgumentOutOfRangeException("rawContents", "Number of columns defined in Columns is not the same as the number of columns in the rawContents.");
 					foreach (Column col in Columns)
 					{
 						result.Tables[TableName].Columns.Add(col.Name);
