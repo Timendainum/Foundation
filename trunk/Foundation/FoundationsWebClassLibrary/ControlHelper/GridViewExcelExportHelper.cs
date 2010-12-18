@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using System.Web;
 using System.Web.UI;
@@ -10,26 +11,33 @@ namespace FoundationWebClassLibrary.ControlHelper
 	/// <summary>
 	/// 
 	/// </summary>
-	public class GridViewExcelExportHelper
+	public static class GridViewExcelExportHelper
 	{
 		/// <summary>
 		/// Exports passed gridview to XLS under a ASP.Net page
 		/// </summary>
 		/// <param name="fileName"></param>
-		/// <param name="gv"></param>
+		/// <param name="gridView"></param>
 		/// <param name="numberOfRows">-1 is all rows, 0 is current page, other number is number of rows</param>
-		public static void Export(string fileName, GridView gv, int numberOfRows)
+		public static void Export(string fileName, GridView gridView, int numberOfRows)
 		{
+			if (string.IsNullOrEmpty(fileName))
+				throw new ArgumentNullException("fileName");
+			if (gridView == null)
+				throw new ArgumentNullException("gridView");
+			if (numberOfRows < -1)
+				throw new ArgumentOutOfRangeException("numberOfRows");
+
 			//Set up paging on gridview
 			if (numberOfRows == -1)
 			{
-				gv.AllowPaging = false;
-				gv.DataBind();
+				gridView.AllowPaging = false;
+				gridView.DataBind();
 			}
 			else if (numberOfRows > 0)
 			{
-				gv.PageSize = numberOfRows;
-				gv.DataBind();
+				gridView.PageSize = numberOfRows;
+				gridView.DataBind();
 			}
 
 			// Handle export
@@ -45,24 +53,24 @@ namespace FoundationWebClassLibrary.ControlHelper
 					using (Table table = new Table())
 					{
 						//  include the gridline settings
-						table.GridLines = gv.GridLines;
+						table.GridLines = gridView.GridLines;
 						//  add the header row to the table
-						if (gv.HeaderRow != null)
+						if (gridView.HeaderRow != null)
 						{
-							GridViewExcelExportHelper.PrepareControlForExport(gv.HeaderRow);
-							table.Rows.Add(gv.HeaderRow);
+							GridViewExcelExportHelper.PrepareControlForExport(gridView.HeaderRow);
+							table.Rows.Add(gridView.HeaderRow);
 						}
 						//  add each of the data rows to the table
-						foreach (GridViewRow row in gv.Rows)
+						foreach (GridViewRow row in gridView.Rows)
 						{
 							GridViewExcelExportHelper.PrepareControlForExport(row);
 							table.Rows.Add(row);
 						}
 						//  add the footer row to the table
-						if (gv.FooterRow != null)
+						if (gridView.FooterRow != null)
 						{
-							GridViewExcelExportHelper.PrepareControlForExport(gv.FooterRow);
-							table.Rows.Add(gv.FooterRow);
+							GridViewExcelExportHelper.PrepareControlForExport(gridView.FooterRow);
+							table.Rows.Add(gridView.FooterRow);
 						}
 						//  render the table into the htmlwriter
 						table.RenderControl(htw);

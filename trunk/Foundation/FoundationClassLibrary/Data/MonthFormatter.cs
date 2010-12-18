@@ -130,7 +130,7 @@ namespace FoundationClassLibrary.Data
 		{
 			//validate params
 			if (month < 1 || month > 12)
-				throw new Exception("The month int given was out of range.");
+				throw new ArgumentOutOfRangeException("month", "The month int given was out of range.");
 			
 			IntCollection monthList = new IntCollection();
 			for (int i = 0; i <= month ; i++)

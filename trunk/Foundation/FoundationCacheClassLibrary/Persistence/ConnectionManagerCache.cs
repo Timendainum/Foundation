@@ -6,7 +6,7 @@ using InterSystems.Data.CacheClient;
 
 namespace FoundationCacheClassLibrary.Persistence
 {
-	public class ConnectionManagerCache : ConnectionManagerBase, IDisposable
+	public class ConnectionManagerCache : ConnectionManagerBase
 	{
 		#region constructor/deconstructor/dispose
 		public ConnectionManagerCache()
@@ -22,7 +22,7 @@ namespace FoundationCacheClassLibrary.Persistence
 			ConnectionString = ConfigurationManager.ConnectionStrings[DefaultCacheConnectionString].ConnectionString;
 		}
 		#region disposal
-		public override void Dispose()
+		public new void Dispose()
 		{
 			Logger.Debug("Dispose() start", ToString());
 

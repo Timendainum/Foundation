@@ -4,37 +4,35 @@ using System.Data;
 using FoundationClassLibrary.Log;
 using FoundationClassLibrary.Persistence;
 using InterSystems.Data.CacheClient;
+using System.Diagnostics.CodeAnalysis;
 
 namespace FoundationCacheClassLibrary.Persistence
 {
-	public class SqlExecutorCache : SqlExecutorBase, IDisposable
+	public class SqlExecutorCache : SqlExecutorBase
 	{
 		#region constructor/deconstructor/dispose
 		public SqlExecutorCache()
 		{
 			ConnectionManager = new ConnectionManagerCache();
-			Parameters = new List<CacheParameter>();
+			//Parameters = new CacheParameterCollection();
 		}
 		#region disposal
-		public override void Dispose()
+		public void Dispose()
 		{
-			Logger.Debug("Dispose() start", ToString());
-			
-			SQL = string.Empty;
+			Sql = string.Empty;
 			Parameters.Clear();
 			if (Command != null && Command.Connection.State != ConnectionState.Closed)
 				Command.Dispose();
 			if (ConnectionManager != null)
 				ConnectionManager.Dispose();
-
-			Logger.Debug("Dispose() end", ToString());
 		}
 		#endregion
 		#endregion
 		#region properties
-		public string SQL { get; set; }
+		public string Sql { get; set; }
 		public CacheCommand Command { get; set; }
-		public List<CacheParameter> Parameters { get; set; }
+		public CacheParameterCollection Parameters { get; set; }
+		
 		#endregion
 		#region query running methods
 		/// <summary>
@@ -50,7 +48,7 @@ namespace FoundationCacheClassLibrary.Persistence
 			{
 				Logger.Debug("Establishing connection...", ToString());
 				InitConnection();
-				Command = new CacheCommand(SQL, Connection);
+				Command = new CacheCommand(Sql, Connection);
 
 				//Add parameters
 				Logger.Debug("Adding parameters...", ToString());
@@ -75,6 +73,7 @@ namespace FoundationCacheClassLibrary.Persistence
 		/// Executes a SQL query and returns a data set.
 		/// </summary>
 		/// <returns></returns>
+		[SuppressMessage("Microsoft.Reliability", "CA2000:Dispose objects before losing scope")] //this is here because he code anaylizer doesn't find where I fix this problem
 		public DataSet ExecuteDataSet()
 		{
 			Logger.Debug("ExecuteDataSet() start", ToString());
@@ -87,7 +86,7 @@ namespace FoundationCacheClassLibrary.Persistence
 				InitConnection();
 				InitDataAdapter();
 				DataAdapter.SelectCommand = Connection.CreateCommand();
-				DataAdapter.SelectCommand.CommandText = SQL;
+				DataAdapter.SelectCommand.CommandText = Sql;
 				DataAdapter.SelectCommand.CommandTimeout = 240;
 
 				//Add parameters
@@ -104,6 +103,7 @@ namespace FoundationCacheClassLibrary.Persistence
 			catch (Exception ex)
 			{
 				Logger.Log(String.Format("An exception was thrown in LoadDataSet(): {0}", ex.Message), ToString(), EType.Error, ESeverity.Critical, ELoggerDataAccessType.TextFile);
+				dataSet.Dispose();
 				throw;
 			}
 			finally
@@ -126,7 +126,7 @@ namespace FoundationCacheClassLibrary.Persistence
 			try
 			{
 				InitConnection();
-				Command = new CacheCommand(SQL, Connection);
+				Command = new CacheCommand(Sql, Connection);
 
 				//Add parameters
 				foreach (CacheParameter parameter in Parameters)
@@ -159,7 +159,7 @@ namespace FoundationCacheClassLibrary.Persistence
 			try
 			{
 				InitConnection();
-				Command = new CacheCommand(SQL, Connection);
+				Command = new CacheCommand(Sql, Connection);
 
 				//Add parameters
 				foreach (CacheParameter parameter in Parameters)

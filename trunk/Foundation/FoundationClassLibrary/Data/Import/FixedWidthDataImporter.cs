@@ -18,8 +18,8 @@ namespace FoundationClassLibrary.Data.Import
 		#endregion
 
 		#region properties
-		public StringCollection RowDelimiters { get; set; }
-		public FixedWidthColumnCollection Columns { get; set; }
+		public StringCollection RowDelimiters { get; private set; }
+		public FixedWidthColumnCollection Columns { get; private set; }
 		public string TableName { get; set; }
 		#endregion
 		
