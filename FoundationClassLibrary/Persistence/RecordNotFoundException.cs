@@ -23,7 +23,7 @@ namespace FoundationClassLibrary.Persistence
 
 		
 		/// <summary>
-		/// Creates an instance of ExceptionRecordNotFound.
+		/// Creates an instance of RecordNotFoundException.
 		/// </summary>
 		/// <param name="operationType">What type of operation was in progress when this exception was raised.</param>
 		/// <param name="source">The object or table that was being accessed when the exception occurred.</param>
@@ -87,7 +87,7 @@ namespace FoundationClassLibrary.Persistence
 			get
 			{
 				if (string.IsNullOrEmpty(_message))
-					return String.Format("ExceptionRecordNotFound: Object {0} {1} record could not be found during a {2} operation.", ObjectName, SearchParameter, EnumFormatter.ToString(Operation));
+					return String.Format("RecordNotFoundException: Object {0} {1} record could not be found during a {2} operation.", ObjectName, SearchParameter, EnumFormatter.ToString(Operation));
 				else
 					return _message;
 			}

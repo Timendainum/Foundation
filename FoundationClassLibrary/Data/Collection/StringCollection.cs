@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections;
 
 namespace FoundationClassLibrary.Data.Collection
 {
-	public class StringCollection : Collection<string>
+	public class StringCollection : Collection<string>, IEnumerable
 	{
 		#region constructors
 		public StringCollection()
@@ -19,5 +20,12 @@ namespace FoundationClassLibrary.Data.Collection
 			List<string> items = (List<string>)Items;
 			return items.ToArray();
 		}
+
+		public new virtual IEnumerator GetEnumerator()
+		{
+			List<string> items = (List<string>)Items;
+			return items.GetEnumerator();
+		}
 	}
+
 }
