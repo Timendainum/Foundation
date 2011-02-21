@@ -12,14 +12,14 @@ namespace FoundationCacheClassLibrary.Persistence
 		public ConnectionManagerCache()
 		{
 			DefaultConnectionString = ConfigurationManager.AppSettings["DefaultCacheConnectionString"];
-			if (!string.IsNullOrEmpty(DefaultCacheConnectionString))
-				ConnectionString = ConfigurationManager.ConnectionStrings[DefaultCacheConnectionString].ConnectionString;
+			if (!string.IsNullOrEmpty(DefaultConnectionString))
+				ConnectionString = ConfigurationManager.ConnectionStrings[DefaultConnectionString].ConnectionString;
 		}
 
-		public ConnectionManagerCache(string defaultCacheConnectionString)
+		public ConnectionManagerCache(string connectionString)
 		{
-			DefaultCacheConnectionString = defaultCacheConnectionString;
-			ConnectionString = ConfigurationManager.ConnectionStrings[DefaultCacheConnectionString].ConnectionString;
+			DefaultConnectionString = connectionString;
+			ConnectionString = ConfigurationManager.ConnectionStrings[DefaultConnectionString].ConnectionString;
 		}
 		#region disposal
 		public new void Dispose()
@@ -38,7 +38,6 @@ namespace FoundationCacheClassLibrary.Persistence
 		#endregion
 		#endregion
 		#region properties
-		public string DefaultCacheConnectionString { get; set; }
 		public CacheConnection Connection { get; set; }
 		public CacheDataAdapter DataAdapter { get; set; }
 		#endregion

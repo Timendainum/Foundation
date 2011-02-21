@@ -14,7 +14,7 @@ namespace FoundationCacheClassLibrary.Persistence
 		public SqlExecutorCache()
 		{
 			ConnectionManager = new ConnectionManagerCache();
-			//Parameters = new CacheParameterCollection();
+			Parameters = new List<CacheParameter>();
 		}
 		#region disposal
 		public void Dispose()
@@ -31,7 +31,7 @@ namespace FoundationCacheClassLibrary.Persistence
 		#region properties
 		public string Sql { get; set; }
 		public CacheCommand Command { get; set; }
-		public CacheParameterCollection Parameters { get; set; }
+		public List<CacheParameter> Parameters { get; set; }
 		
 		#endregion
 		#region query running methods
