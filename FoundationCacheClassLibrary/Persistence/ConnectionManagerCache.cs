@@ -18,8 +18,7 @@ namespace FoundationCacheClassLibrary.Persistence
 
 		public ConnectionManagerCache(string connectionString)
 		{
-			DefaultConnectionString = connectionString;
-			ConnectionString = ConfigurationManager.ConnectionStrings[DefaultConnectionString].ConnectionString;
+			ConnectionString = connectionString;
 		}
 		#region disposal
 		public new void Dispose()
@@ -45,6 +44,10 @@ namespace FoundationCacheClassLibrary.Persistence
 		public override void InitConnection()
 		{
 			Logger.Debug("InitConnection() start", ToString());
+
+			if (string.IsNullOrEmpty(ConnectionString))
+				throw new Exception("No ConnectionString defined for ConnectionManagerCache.");
+
 			try
 			{
 				//Open connection may exist
