@@ -16,6 +16,13 @@ namespace FoundationCacheClassLibrary.Persistence
 			ConnectionManager = new ConnectionManagerCache();
 			Parameters = new List<CacheParameter>();
 		}
+
+		public SqlExecutorCache(string connectionString)
+		{
+			ConnectionManager = new ConnectionManagerCache(connectionString);
+			Parameters = new List<CacheParameter>();
+		}
+
 		#region disposal
 		public void Dispose()
 		{

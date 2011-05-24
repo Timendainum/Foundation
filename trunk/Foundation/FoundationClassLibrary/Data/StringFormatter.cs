@@ -304,11 +304,12 @@ namespace FoundationClassLibrary.Data
 		/// <returns>A generic list of strings: StringCollection</returns>
 		public static StringCollection DelimitedStringToStringList(string value, char delimiter)
 		{
+			StringCollection result = new StringCollection();
+
 			//validate params
 			if (string.IsNullOrEmpty(value))
-				throw new ArgumentNullException("value");
-
-			StringCollection result = new StringCollection();
+				return result;
+		
 			string[] valueArray = value.Split(delimiter);
 			foreach (string val in valueArray)
 				result.Add(val.Trim());
