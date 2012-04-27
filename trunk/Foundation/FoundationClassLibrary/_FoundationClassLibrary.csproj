@@ -93,6 +93,7 @@
     <Compile Include="Log\ILoggerDataAccess.cs" />
     <Compile Include="Log\Logger.cs" />
     <Compile Include="Log\LoggerDataAccessTextFile.cs" />
+    <Compile Include="Maths\SimpleRNG.cs" />
     <Compile Include="Persistence\ConnectionManagerBase.cs" />
     <Compile Include="Persistence\EOperationType.cs" />
     <Compile Include="Persistence\RecordNotFoundException.cs" />
