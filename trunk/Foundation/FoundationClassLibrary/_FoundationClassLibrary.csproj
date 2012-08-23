@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>FoundationClassLibrary</RootNamespace>
     <AssemblyName>FoundationClassLibrary</AssemblyName>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
@@ -31,8 +31,7 @@
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <TargetFrameworkProfile>
-    </TargetFrameworkProfile>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -86,7 +85,6 @@
     <Compile Include="Data\Import\FixedWidthColumn.cs" />
     <Compile Include="Data\Import\FixedWidthDataImporter.cs" />
     <Compile Include="Data\MonthFormatter.cs" />
-    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Log\ELoggerDataAccessType.cs" />
     <Compile Include="Log\ESeverity.cs" />
     <Compile Include="Log\EType.cs" />
