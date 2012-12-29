@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel;
-using FoundationClassLibrary;
 
 namespace FoundationWebClassLibrary
 {
@@ -7,7 +6,7 @@ namespace FoundationWebClassLibrary
     /// This is the base class for services classes for web front ends.
     /// </summary>
     [DataObject]
-    public abstract class ServiceWebBase : ServiceBase
+    public abstract class ServiceWebBase
     {
 
     }
