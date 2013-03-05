@@ -328,6 +328,26 @@ namespace FoundationClassLibrary.Data
 			return result;
 		}
 
+		public static StringCollection DelimitedStringToStringCollection(string value, char delimiter, bool trim)
+		{
+			StringCollection result = new StringCollection();
+
+			//validate params
+			if (string.IsNullOrEmpty(value))
+				return result;
+
+			string[] valueArray = value.Split(delimiter);
+			foreach (string val in valueArray)
+			{
+				if (trim)
+					result.Add(val.Trim());
+				else
+					result.Add(val);
+			}
+
+			return result;
+		}
+
 		/// <summary>
 		/// Converts a comma delimited string to a generic list of trimmed strings.
 		/// </summary>
