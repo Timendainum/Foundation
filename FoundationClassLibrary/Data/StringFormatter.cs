@@ -14,42 +14,8 @@ namespace FoundationClassLibrary.Data
     public static class StringFormatter
     {
         #region declarations
-        private static string[] specialCharacters =
-		{ 
-			@"`",
-			@"-", 
-			@"=", 
-			@"[", 
-			@"]", 
-			@"\", 
-			@";", 
-			@"'", 
-			"\"",
-			@",", 
-			@"/", 
-			@"~", 
-			@"!", 
-			@"@", 
-			@"#",
-			@"$",
-			@"%", 
-			@"^",
-			@"&",
-			@"*", 
-			@"(", 
-			@")", 
-			@"+", 
-			@"{", 
-			@"}", 
-			@"|", 
-			@":", 
-			@"<", 
-			@">", 
-			@"?"
-		};
-
 		#region fields
-		private static string[] specialCharacters1 =
+		private static string[] specialCharacters =
 		{ 
 			@"`",
 			@"-", 
@@ -227,6 +193,30 @@ namespace FoundationClassLibrary.Data
 
             return processedFileName;
         }
+
+		public static bool IsStringSafe(string value)
+		{
+			if (string.IsNullOrEmpty(value))
+				return false;
+
+			foreach (string s in specialCharacters)
+			{
+				if (value.Contains(s))
+					return false;
+			}
+
+			string firstChar = StringFormatter.Left(value, 1);
+
+			foreach (string s in numbers)
+			{
+				if (firstChar.Contains(s))
+					return false;
+			}
+
+			return true;
+
+		}
+
         #endregion
 
         #region value mapping, turn string into other values safely.
