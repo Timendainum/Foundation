@@ -48,7 +48,58 @@ namespace FoundationClassLibrary.Data
 			@"?"
 		};
 
-        private static string replaceChar = @"_";
+		#region fields
+		private static string[] specialCharacters1 =
+		{ 
+			@"`",
+			@"-", 
+			@"=", 
+			@"[", 
+			@"]", 
+			@"\", 
+			@";", 
+			@"'", 
+			"\"",
+			@",", 
+			@"/", 
+			@"~", 
+			@"!", 
+			@"@", 
+			@"#",
+			@"$",
+			@"%", 
+			@"^",
+			@"&",
+			@"*", 
+			@"(", 
+			@")", 
+			@"+", 
+			@"{", 
+			@"}", 
+			@"|", 
+			@":", 
+			@"<", 
+			@">", 
+			@"?",
+			@" "
+		};
+
+		private static string[] numbers =
+		{ 
+			@"0",
+			@"1", 
+			@"2", 
+			@"3", 
+			@"4", 
+			@"5", 
+			@"6", 
+			@"7", 
+			@"8",
+			@"9"
+		};
+		#endregion
+
+		private static string replaceChar = @"_";
         private static string doubleReplaceChar = replaceChar + replaceChar;
         #endregion
 
