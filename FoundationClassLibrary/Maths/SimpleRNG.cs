@@ -59,6 +59,11 @@ namespace FoundationClassLibrary.Maths
             return (u + 1.0) * 2.328306435454494e-10;
         }
 
+		public static int GetUniformIntInRange(int min, int max) {
+			max++;
+			return (int)Math.Floor(GetUniform() * (max - min)) + min;
+		}
+
         // This is the heart of the generator.
         // It uses George Marsaglia's MWC algorithm to produce an unsigned integer.
         // See http://www.bobwheeler.com/statistics/Password/MarsagliaPost.txt
