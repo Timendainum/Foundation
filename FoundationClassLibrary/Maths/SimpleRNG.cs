@@ -30,13 +30,13 @@ namespace FoundationClassLibrary.Maths
         // 2) specifying one non-zero unsigned integer and taking a default value for the second
         // 3) setting the seed from the system time
 
-        public static void SetSeed(uint u, uint v)
+        private static void setSeed(uint u, uint v)
         {
             if (u != 0) m_w = u; 
             if (v != 0) m_z = v;
         }
 
-        public static void SetSeed(uint u)
+        private static void setSeed(uint u)
         {
             m_w = u;
         }
@@ -45,7 +45,7 @@ namespace FoundationClassLibrary.Maths
         {
             DateTime dt = DateTime.Now;
             long x = dt.ToFileTime();
-            SetSeed((uint)(x >> 16), (uint)(x % 4294967296));
+            setSeed((uint)(x >> 16), (uint)(x % 4294967296));
         }
 
         // Produce a uniform random sample from the open interval (0, 1).
